@@ -1,0 +1,42 @@
+# Artefactos de compilación de .NET
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+publish/
+*.dll
+*.exe
+*.pdb
+
+# Archivos de usuario / IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.swp
+
+# Paquetes y herramientas
+packages/
+*.nupkg
+.dotnet/
+
+# Configuración local y secretos
+appsettings.Development.local.json
+*.local.json
+.env
+.env.local
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs y bases de datos locales
+*.log
+*.db
+*.db-shm
+*.db-wal
