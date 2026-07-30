@@ -16,6 +16,39 @@ Formato de cada entrada:
 
 ---
 
+## 2026-07-30 — Auto-recordatorio para seguimiento de PRs
+
+**Estado:** terminado
+
+**Cambios:**
+- `CLAUDE.md`: nueva sección "Seguimiento automático de PRs" con el protocolo de
+  auto-despertar (`send_later` para recordatorios de una vez, `create_trigger` para
+  rutinas recurrentes) y las reglas de cuándo re-armar y cuándo callar.
+
+**Contexto:**
+En la sesión anterior se reportó que la herramienta de auto-recordatorio no estaba
+disponible. Era incorrecto: `send_later` ya estaba cargada como herramienta activa.
+La búsqueda que se hizo (`ToolSearch`) solo consulta herramientas *diferidas*, y por eso
+no la encontró. No hubo nada que instalar.
+
+**Decisiones:**
+- El recordatorio re-chequea el PR cada ~1 hora y **se re-arma en silencio** si no cambió
+  nada: sin mensajes al usuario ni comentarios en el PR. Solo habla si hay algo accionable
+  o si el PR se mergeó/cerró.
+- Se usa `send_later` (una vez, re-armado en cadena) en vez de una rutina cron recurrente,
+  porque el seguimiento debe terminar solo cuando el PR se cierra, no correr indefinidamente.
+
+**Estado del PR #1:**
+Abierto, en draft, `mergeable_state: clean`, sin CI configurado (0 checks) y sin
+comentarios de revisión. Nada pendiente por atender.
+Recordatorio activo: `trig_0199mymyKzNH9hzpvFhTYEyY`, dispara 2026-07-30 04:47 UTC.
+
+**Siguiente paso:**
+- Sigue pendiente mergear el PR #1 a `main` para que el hook aplique a todas las sesiones.
+- Sigue pendiente desbloquear los dominios de .NET en la política de red.
+
+---
+
 ## 2026-07-28 — Sistema de seguimiento del repo
 
 **Estado:** terminado

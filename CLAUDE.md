@@ -42,6 +42,23 @@ Ver `docs/BITACORA.md` para el registro cronológico completo. Resumen vivo:
    (nuevo proyecto, nueva dependencia, nueva decisión de arquitectura).
 3. Commit + push a la rama de trabajo.
 
+### Seguimiento automático de PRs
+Claude puede auto-despertarse para revisar el estado de un PR sin que haya que pedírselo:
+
+- `send_later` → recordatorio de una sola vez que vuelve a esta misma conversación.
+- `create_trigger` → rutina recurrente (cron) para revisiones periódicas.
+
+Protocolo cuando hay un PR abierto:
+1. Al abrir un PR, Claude se suscribe a su actividad y arma un `send_later` a ~1 hora.
+2. Al dispararse, revisa estado, CI y comentarios del PR.
+3. Si no cambió nada, **re-arma el recordatorio en silencio** (sin escribir al usuario ni
+   comentar en el PR).
+4. Si hay CI en rojo, comentarios sin atender o conflicto de merge, lo resuelve o pregunta.
+5. Deja de re-armar cuando el PR queda mergeado o cerrado.
+
+Los webhooks no avisan de todo (CI en verde, pushes nuevos, conflictos), por eso el
+recordatorio periódico es el respaldo.
+
 ### Git
 - Todo el desarrollo de Claude va a `claude/repo-changes-monitoring-4j3elf`.
 - Nunca commits directos a `main`.
